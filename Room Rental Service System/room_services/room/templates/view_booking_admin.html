@@ -1,0 +1,36 @@
+{% include 'admin_navigation.html' %}
+<form method="POST" action="/search">
+        {% csrf_token %}
+        <input type="search" name="name" placeholder="Search Room by Email">
+        <input type="submit"> | <a href="{% url 'view_booking_admin' %}">Cancel</a>
+    </form>
+
+<table class="table">
+    <tr>
+        <th>S. No.</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Booking Date</th>
+        <th>No. Of Days</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.fullname}}</td>
+        <td>{{i.email}}</td>
+        <td>{{i.contact1}}</td>
+        <td>{{i.booking_date}}</td>
+        <td align="center">{{i.days}}</td>
+        <td>{{i.price}}</td>
+        <td><a href="{% url 'change_status' i.id %}">{{i.status}}</a></td>
+        <td><a href="{% url 'delete_booking_admin' i.id %}" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
